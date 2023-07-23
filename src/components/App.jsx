@@ -9,6 +9,8 @@ import CurrentUserContext from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.jsx';
 import EditAvatarPopup from './EditAvatarPopup.jsx';
 import AddPlacePopup from './AddPlacePopup.jsx';
+import InfoTooltip from './InfoTooltip.jsx';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -16,11 +18,13 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopup] = useState(false);
   const [imagePopup, setImagePopup] = useState(false);
+  const [isInfoTooltip, setisInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 //   const [isTransmit, setIsTransmit] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [deleteCardId, setDeleteCardId] = useState('');
+  const [isSuccess, setSuccess] = useState(false);
 
   const setCloseAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
@@ -161,6 +165,10 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
         <Header />
+        {/* <Routes>
+          <Route path={} />
+        </Routes> */}
+
         <Main 
             onEditProfile= {handleEditProfileClick}
             onAddPlace = {handleAddPlaceClick}
@@ -199,6 +207,11 @@ function App() {
             card={selectedCard}
             isOpen={imagePopup}
             onClose={closeAllPopups}
+        />
+        <InfoTooltip
+            isOpen={isInfoTooltip}
+            onClose={closeAllPopups}
+            isSuccess={isSuccess}
         />
     </div>
     </CurrentUserContext.Provider>
