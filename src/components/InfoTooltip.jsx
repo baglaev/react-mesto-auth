@@ -4,9 +4,9 @@ import unsuccessImage from '../images/error-image.svg';
 
 function InfoTooltip({isOpen, onClose, isSuccess}) {
     return (
-        <section className={`popup popup_type_info ${isOpen ? "popup_opened" : ""}`}>
+        <section className={`popup popup_type_info ${isOpen ? 'popup_opened' : ''}`}>
             <div className="popup__container">
-                <button className="popup__close-button" type="button" onClick={onClose}></button>
+                <button className="popup__button-close" type="button" onClick={onClose}></button>
                 <div className="popup__info-container">{isSuccess ? (
                     < >
                         <img className="popup__info-image" src={successImage} alt="Вы успешно зарегистрировались!" />

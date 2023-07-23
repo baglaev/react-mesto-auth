@@ -14,6 +14,7 @@ import Login from './Login.jsx';
 import Register from './Register.jsx';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.jsx';
+import * as auth from "../utils/auth";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -29,6 +30,29 @@ function App() {
   const [deleteCardId, setDeleteCardId] = useState('');
   const [isSuccess, setSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState('')
+
+  const navigate = useNavigate();
+
+  function checkTokenActive() {
+    const jwt = localStorage.getItem("jwt");
+
+    if (localStorage.getItem("jwt")) {
+      // const jwt = localStorage.getItem("jwt");
+      auth.checkToken(jwt)
+        .then((data) => {
+          if (!data) {
+            return;
+          }
+          setIsLoggedIn(true);
+          setEmail(data.data.email)
+          navigate("/", {replace: true});
+        })
+        .catch(() => {
+          setIsLoggedIn(false);
+        });
+    }
+  }
 
   const setCloseAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
@@ -143,13 +167,17 @@ function App() {
         });
   }, [])
 
+  useEffect(() => {
+    checkTokenActive();
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
         <Header />
         <Routes>
             <Route path="/signin"
-              element={<Login handleLogin={handleLogin} setEmail={setEmail} />}
+              element={<Login handleLogin={setIsLoggedIn} setEmail={setEmail} />}
             />
 
             <Route path="/signup"
@@ -190,14 +218,14 @@ function App() {
 
           {isLoggedIn && <Footer />}
 
-        <Main 
+        {/* <Main 
             onEditProfile= {handleEditProfileClick}
             onAddPlace = {handleAddPlaceClick}
             onEditAvatar = {handleEditAvatarClick}
             onCardClick = {handleCardClick}
             onDelete = {handleDeletePopupClick}
             cards = {cards}
-        />
+        /> */}
         <Footer />
         <EditProfilePopup 
             isOpen={isEditProfilePopupOpen}

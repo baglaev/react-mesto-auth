@@ -1,6 +1,6 @@
 import React from 'react';
 import logoHeader from '../images/logo_header.svg';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link} from 'react-router-dom';
 
 function Header({email, setIsLoggedIn}) {
     const location = useLocation();
@@ -19,13 +19,13 @@ function Header({email, setIsLoggedIn}) {
                 <Link className="header__link" to="/signup">Регистрация</Link>
             )}
             {location.pathname === "/signup" && (
-                <Link className="header__link" to="/signin">Войти</Link>
+                <Link className="header__link" to="/signin">Вход</Link>
             )}
             {location.pathname === "/" && (
                 <div className="header__about">
-                <p className="header__email">{email}</p>
-                <Link className="header__sign-out" to="/signin" onClick={signOut}>Выйти</Link>
-        </div>
+                    <p className="header__email">{email}</p>
+                    <Link className="header__sign-out" to="/signin" onClick={signOut}>Выйти</Link>
+                </div>
       )}
 
         </header>

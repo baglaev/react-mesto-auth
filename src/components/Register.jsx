@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import Header from './Header.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import * as auth from "../utils/auth";
 
@@ -21,7 +20,6 @@ function Register({setSuccess, setIsInfoTooltip}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        // props.handleSubmit(formValue.password, formValue.email);
         auth.register(formValue.password, formValue.email)
             .then(() => {
                 navigate("/signin");
