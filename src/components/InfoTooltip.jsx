@@ -4,8 +4,8 @@ import unsuccessImage from '../images/error-image.svg';
 
 function InfoTooltip({isOpen, onClose, isSuccess}) {
     return (
-        <section className={`popup popup_type_info ${isOpen ? 'popup_opened' : ''}`}>
-            <div className="popup__container">
+        <div className={`popup popup_type_info ${isOpen ? 'popup_opened' : ''}`} onClick={onClose}>
+            <div className="popup__container" onClick={(e => e.stopPropagation())}>
                 <button className="popup__button-close" type="button" onClick={onClose}></button>
                 <div className="popup__info-container">{isSuccess ? (
                     < >
@@ -20,7 +20,7 @@ function InfoTooltip({isOpen, onClose, isSuccess}) {
                     )}
                 </div>
             </div>
-        </section>
+        </div>
     )
 
 }

@@ -20,6 +20,7 @@ function Register({setSuccess, setIsInfoTooltip}) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        console.log(formValue.password, formValue.email);
         auth.register(formValue.password, formValue.email)
             .then(() => {
                 navigate("/signin");
@@ -39,10 +40,10 @@ function Register({setSuccess, setIsInfoTooltip}) {
         <section className="login">
             <h2 className="login__title">Регистрация</h2>
             <form className="login__form" noValidate onSubmit={handleSubmit}>
-                <input type="text" name="email" className="login__input" value={formValue.email || ""} onChange={handleChange} required />
-                <input type="text" name="password" className="login__input" value={formValue.password || ""} onChange={handleChange} />
+                <input type="text" name="email" className="login__input" value={formValue.email || ''} onChange={handleChange} required />
+                <input type="text" name="password" className="login__input" value={formValue.password || ''} onChange={handleChange} required />
                 <button className="login__button" type="submit">Зарегистрироваться</button>
-                <Link className="login__link">Уже зарегистрированы? Войти</Link>
+                <Link to="/signin" className="login__link">Уже зарегистрированы? Войти</Link>
             </form>
         </section>
         </>

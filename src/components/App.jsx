@@ -54,12 +54,17 @@ function App() {
     }
   }
 
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
   const setCloseAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setImagePopup(false);
     setDeletePopup(false);
+    setIsInfoTooltip(false);
   }, [])
 
   const closePopupByEsc = useCallback((e) => {
@@ -174,10 +179,10 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
-        <Header />
+        <Header email={email} setIsLoggedIn={setIsLoggedIn}/>
         <Routes>
             <Route path="/signin"
-              element={<Login handleLogin={setIsLoggedIn} setEmail={setEmail} />}
+              element={<Login handleLogin={handleLogin} setEmail={setEmail} />}
             />
 
             <Route path="/signup"
@@ -226,7 +231,7 @@ function App() {
             onDelete = {handleDeletePopupClick}
             cards = {cards}
         /> */}
-        <Footer />
+        {/* <Footer /> */}
         <EditProfilePopup 
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
