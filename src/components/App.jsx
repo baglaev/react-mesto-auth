@@ -10,7 +10,10 @@ import EditProfilePopup from './EditProfilePopup.jsx';
 import EditAvatarPopup from './EditAvatarPopup.jsx';
 import AddPlacePopup from './AddPlacePopup.jsx';
 import InfoTooltip from './InfoTooltip.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -18,13 +21,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopup] = useState(false);
   const [imagePopup, setImagePopup] = useState(false);
-  const [isInfoTooltip, setisInfoTooltip] = useState(false);
+  const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 //   const [isTransmit, setIsTransmit] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [deleteCardId, setDeleteCardId] = useState('');
   const [isSuccess, setSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const setCloseAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false);
@@ -67,14 +71,6 @@ function App() {
     setDeletePopup(true);
     setEventListenerDocument();
   }
-
-//   function closeAllPopups() {
-//     setIsEditProfilePopupOpen(false);
-//     setIsAddPlacePopupOpen(false);
-//     setIsEditAvatarPopupOpen(false);
-//     setImagePopup(false);
-//     setDeletePopup(false);
-//   }
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -132,20 +128,6 @@ function App() {
         });
   }
 
-//   function closeAllPopupsOnOverlay(e) {
-//     if (e.target === e.currentTarget) {
-//         closeAllPopups();
-//         document.removeEventListener('keydown', closePopupByEsc);
-//     }
-//   }
-
-//   function closePopupByEsc(e) {
-//     if (e.key === 'Escape') {
-//         closeAllPopups();
-//         document.removeEventListener('keydown', closePopupByEsc);
-//     }
-//   }
-
   function setEventListenerDocument() {
     document.addEventListener('keydown', closePopupByEsc);
   }
@@ -165,9 +147,48 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
         <Header />
-        {/* <Routes>
-          <Route path={} />
-        </Routes> */}
+        <Routes>
+            <Route path="/signin"
+              element={<Login handleLogin={handleLogin} setEmail={setEmail} />}
+            />
+
+            <Route path="/signup"
+              element={
+                <Register setSuccess={setSuccess} setIsInfoTooltip={setIsInfoTooltip} />
+              }
+            />
+
+            <Route path="/react-mesto-auth"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/" replace/>
+                ) : (
+                  <Navigate to="/signin" replace />
+                )
+              }
+            />
+
+            <Route path="*" element={<Navigate to="/signin" replace />} />
+
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute
+                  element={Main}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace = {handleAddPlaceClick}
+                  onEditAvatar = {handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  // onCardLike={handleCardLike}
+                  onDelete = {handleDeletePopupClick}
+                  cards={cards}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+          </Routes>
+
+          {isLoggedIn && <Footer />}
 
         <Main 
             onEditProfile= {handleEditProfileClick}
