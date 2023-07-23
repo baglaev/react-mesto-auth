@@ -20,7 +20,6 @@ function Register({setSuccess, setIsInfoTooltip}) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(formValue.password, formValue.email);
         auth.register(formValue.password, formValue.email)
             .then(() => {
                 navigate("/signin");

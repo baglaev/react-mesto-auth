@@ -24,7 +24,6 @@ function App() {
   const [imagePopup, setImagePopup] = useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-//   const [isTransmit, setIsTransmit] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [deleteCardId, setDeleteCardId] = useState('');
@@ -249,7 +248,6 @@ function App() {
             isOpen={isDeletePopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleDeleteSubmit}
-            // isTransmit={isTransmit}
         />
         <EditAvatarPopup
             onUpdateAvatar = {handleUpdateAvatar}

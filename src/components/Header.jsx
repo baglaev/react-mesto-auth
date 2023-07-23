@@ -7,7 +7,7 @@ function Header({email, setIsLoggedIn}) {
     const navigate = useNavigate();
 
     function signOut() {
-        localStorage.removeItem("token");
+        localStorage.removeItem("jwt");
         navigate("/signin");
         setIsLoggedIn(false);
       }
