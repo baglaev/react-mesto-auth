@@ -35,7 +35,6 @@ function Register({setSuccess, setIsInfoTooltip}) {
       }
 
     return(
-        <>
         <section className="login">
             <h2 className="login__title">Регистрация</h2>
             <form className="login__form" noValidate onSubmit={handleSubmit}>
@@ -45,7 +44,6 @@ function Register({setSuccess, setIsInfoTooltip}) {
                 <Link to="/signin" className="login__link">Уже зарегистрированы? Войти</Link>
             </form>
         </section>
-        </>
     )
 }
 

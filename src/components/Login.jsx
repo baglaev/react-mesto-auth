@@ -36,7 +36,6 @@ function Login({handleLogin, setEmail}) {
       }
 
     return(
-        < >
         <section className="login">
             <h2 className="login__title">Вход</h2>
             <form className="login__form" noValidate onSubmit={handleSubmit}>
@@ -45,7 +44,6 @@ function Login({handleLogin, setEmail}) {
                 <button className="login__button" type="submit">Войти</button>
             </form>
         </section>
-        </>
     )
 }
 
